@@ -1,0 +1,29 @@
+{
+"_comment":"go back to this later.",
+"manifest_version": 3,
+    "name": "Swift Savings",
+    "version": "1.0",
+    "description": "This extension is a starting point to create a real Chrome extension",
+    "permissions": [
+        "activeTab",
+        "storage"
+    ],
+    "icons":{ 
+        "16": "",
+        "48": "",
+        "128": ""
+    },
+    "browser_action": {
+        "default_popup": "popup.html",
+        "default_icon": {
+        "16": "",
+        "48": "",
+        "128": ""
+        }
+    },
+    "content-scripts": [
+        {
+            "js": ["index.js"]
+        }
+    ]
+}
