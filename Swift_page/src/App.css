@@ -16,9 +16,12 @@ h1{
    color:white;
    font-size: 30px;
    margin-top: 10px;
+   font-family: 'Courier New', Courier, monospace;
 }
 .navbar{
   background-color: #38598b;
+  height: 7em;
+  width:150em;
 }
 
 .navbar ul{
@@ -57,4 +60,26 @@ h1{
   margin-left: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
+}
+.form-btn-container{
+  display: flex;
+  flex-direction: row;
+  margin-left: 47em;
+}
+.elements-container{
+  display:flex;
+  flex-direction: row; 
+  
+}
+.inner-container{
+  display: flex;
+  flex-direction: row;
+  margin-top: 2em;
+  
+}
+.search-arrange{
+  margin-top: 0.8em;
+}
+.Search-box{
+  width: 20em;
 }
