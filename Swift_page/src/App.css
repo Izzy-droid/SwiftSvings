@@ -83,3 +83,22 @@ h1{
 .Search-box{
   width: 20em;
 }
+table{
+  border-collapse: collapse; 
+  font-family: 'Courier New', Courier, monospace;
+}
+.test-run {
+  border: 10px solid black; /* Adds a thick black border around the row */
+}
+.fml{
+  color: blue;
+}
+.table-container{
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
+}
+.filter-container{
+  background-color:orange;
+  width:2em;
+}

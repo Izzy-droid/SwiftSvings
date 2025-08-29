@@ -1,5 +1,5 @@
-import react from 'react'
-
+import react from 'react';
+import { Outlet } from 'react-router-dom';
 function Layout(){
 return(
     <>
@@ -48,6 +48,7 @@ return(
         <h2>Please select the stores you're interested in</h2>
         <div className="storeSearch active"></div>
       </div>
+      <Outlet/>
     </>
 );
 }

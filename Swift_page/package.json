@@ -1,5 +1,5 @@
 {
-  "name": "swift_page",
+  "name": "mysql_connect",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -7,9 +7,16 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "start": "nodemon src/server.js"
   },
   "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.1",
+    "express": "^5.1.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.14.3",
+    "nodemon": "^3.1.10",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -23,5 +30,9 @@
     "eslint-plugin-react-refresh": "^0.4.19",
     "globals": "^16.0.0",
     "vite": "^6.3.1"
-  }
+  },
+  "description": "for connecting to the mysql db",
+  "main": "eslint.config.js",
+  "author": "",
+  "license": "ISC"
 }
