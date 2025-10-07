@@ -90,8 +90,8 @@ class AzmspiderSpider(scrapy.Spider):
         #$x("//*/div[@class='sg-col-inner']")
         #$x("//*/div[1][@data-cy='title-recipe']/a/h2/span/text()")
         titles = response.xpath("//div[1][@class='a-section a-spacing-none a-spacing-top-small s-title-instructions-style']/a/h2/span/text()").getall()
-        #IM SO ERECT
-        self.logger.debug(f" krill yuorself: {len(titles)}")
+        
+       
     
         #requires pagination below
         #authors = response.xpath("//*/div[3]/div[2]/div[1]/a/span[1]/span[1]/text()").getall()
@@ -139,7 +139,7 @@ class AzmspiderSpider(scrapy.Spider):
         self.logger.debug(f"Extracted formats: {cleaned_bookTypes}")
         self.logger.debug(f"Extracted formats: {cleaned_bookURLs}")
        
-       #PAGINATION POG
+       
      
        
         

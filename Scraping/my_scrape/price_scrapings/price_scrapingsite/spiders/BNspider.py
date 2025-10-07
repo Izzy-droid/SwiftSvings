@@ -78,8 +78,31 @@ class BNspiderSpider(scrapy.Spider):
         user_agent = response.request.headers.get('User-Agent').decode()
         self.log(f"User-Agent: {user_agent}")
 
+
+
+# 1 element should have a title, author,prices, book_types, book_URLs, book_imgs
+
+# const results = Array.from(document.querySelectorAll('#gridView > div > div')).map(container => {
+#     // Return an object containing the container's ID
+#     // and a true array of its child HTML elements.
+#     return {
+#         id: container.id,
+#         children: Array.from(container.children)
+#     };
+# });
+
+
+
+
+
+
+
+
+
         
         #this is for the books and what will be scraped
+        # /html/body/main/div[2]/div[1]/div[2]/div[2]/div/div/section[2]/div/div[1]/div[1]/div[1]/div/a/img
+        # //*[@id="gridView"]/div/div[1]/div[1]/div[1]/div/a/img
         titles = response.xpath("//*[@id='gridView']/div/div/div[2]/div[1]/a[@title]/@title").getall()
         authors = response.xpath("//*[@id='gridView']/div/div/div[2]/div[2]/a[1]/text()").getall()
         prices = response.xpath("//*[@id='gridView']/div/div/div[2]/div[4]/div/a/span[2]/text()").getall()
@@ -113,27 +136,28 @@ class BNspiderSpider(scrapy.Spider):
         self.logger.debug(f"Extracted formats: {cleaned_bookTypes}")
         self.logger.debug(f"Extracted formats: {cleaned_bookURLs}")
        
-       #PAGINATION POG
+ 
      
        
         
        
      
-        next_page = response.xpath("//a[@class='next-button']/@href").get()
-        self.logger.debug(f"Current page: {response.url}")
+        # next_page = response.xpath("//a[@class='next-button']/@href").get()
+        # self.logger.debug(f"Current page: {response.url}")
        
 
-        
+        #for i in 
         if next_page =="https://www.barnesandnoble.com/s/manga?Nrpp=20&page=51": 
                 return
         else:
             yield response.follow(
                 url =next_page,
-                callback=self.parse,
+                callback=self.product_parse,
                 errback=self.errback,
                 meta={'playwright': True} 
             )
-       
+    def product_parse(self,response):
+        pass
       
     async def errback(self,failure):
         page= failure.request.meta.get("playwright_page")

@@ -3,10 +3,9 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import express from 'express';
 import process from 'node:process';
-// import {connection} from '.../SwiftSvings/Scraping/my_scrape/.env';
-// Create a connection
 
-dotenv.config({ path: '../Scraping/my_scrape/.env' });
+dotenv.config({path: '../../../SwiftSvings/Scraping/my_scrape/.env'});
+
 const app = express()
 app.use(cors())
 
@@ -41,40 +40,12 @@ app.get('/users/Ami', (req, res) => {
   })
 })
 
+
+
+
 app.listen(8801, () => {
   console.log('listening');
 })
 
 
 
-
-
-// dotenv.config({path: '../Scraping/my_scrape/.env'})
-// console.log(dotenv.config({path: '/Users/izzy/coding/chrome/SwiftSvings/Scraping/my_scrape/.env'}))
-// const connection = mysql.createConnection({
-//   host: 'localhost',
-//   user: 'root',
-//   password: process.env.DBpass,
-//   database: 'mangafigure_scraping',
-// });
-
-// // Connect to the database
-// connection.connect((err) => {
-//   if (err) {
-//     console.error('Error connecting to MySQL:', err);
-//     return;
-//   }
-//   console.log('Connected to MySQL!');
-// });
-
-// // Perform a query
-// connection.query('SELECT * FROM BNspidermanga_products', (err, results) => {
-//   if (err) {
-//     console.error('Error executing query:', err);
-//     return;
-//   }
-//   console.log('Query results:', results);
-// });
-
-// // Close the connection
-// connection.end();

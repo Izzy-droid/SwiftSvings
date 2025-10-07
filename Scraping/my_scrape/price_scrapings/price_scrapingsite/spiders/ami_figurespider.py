@@ -23,7 +23,7 @@ load_dotenv()
 
 
 class amispiderSpider(scrapy.Spider):
-    name = "amispider"
+    name = "amspider"
     allowed_domains=['amiami.com','api.scraperapi.com']
     start_urls= ['https://www.amiami.com/eng/search/list/?s_st_list_newitem_available=1&s_st_condition_flg=1&s_cate2=1298&pagecnt=1']
     

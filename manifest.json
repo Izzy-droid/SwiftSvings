@@ -1,29 +1,32 @@
 {
-"_comment":"go back to this later.",
 "manifest_version": 3,
     "name": "Swift Savings",
     "version": "1.0",
-    "description": "This extension is a starting point to create a real Chrome extension",
+    "description": "This extension compares prices for manga and figurines from various sites",
     "permissions": [
         "activeTab",
-        "storage"
+        "storage",
+        "scripting",
+        "http://localhost:5000/*"
     ],
     "icons":{ 
-        "16": "",
-        "48": "",
-        "128": ""
+        "16": "Swift_page/images/Slime_0.png",
+        "48": "Swift_page/images/Slime_0.png",
+        "128": "Swift_page/images/Slime_0.png"
     },
-    "browser_action": {
-        "default_popup": "popup.html",
+    "action": {
+        "default_popup": "index.html",
         "default_icon": {
-        "16": "",
-        "48": "",
-        "128": ""
+        "16": "Swift_page/images/Slime_0.png",
+        "48": "Swift_page/images/Slime_0.png",
+        "128": "Swift_page/images/Slime_0.png"
         }
     },
-    "content-scripts": [
+    "content_scripts": [
         {
-            "js": ["index.js"]
+            "matches":["<all_urls>"],
+            
+            "js": ["Swift_page/src/server.js"]
         }
     ]
 }
