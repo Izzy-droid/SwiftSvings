@@ -9,17 +9,8 @@ import requests
 #for amiami
 
 load_dotenv()
-#start_url = 'https://www.amiami.com/eng/search/list/?s_st_list_newitem_available=1&s_st_condition_flg=1&s_cate2=1298&pagecnt=1'
-#go until page 10
-
-# def get_scraperapi_url(url):
-#     API_KEY =os.getenv('API_KEY')
-#     payload = {'api_key': API_KEY, 'url': url, 'follow_redirect': 'false', 'output_format': 'json', 'autoparse': 'true', 'country_code': 'us', 'device_type': 'desktop', 'render': 'true', 'premium': 'true'}
-#     proxy_url = 'http://api.scraperapi.com/?' + urlencode(payload)
-#     return proxy_url
 
 
-#COME BACK TO LATER!!!!!
 
 
 class amispiderSpider(scrapy.Spider):
