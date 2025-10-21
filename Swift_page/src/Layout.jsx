@@ -21,13 +21,13 @@ return(
                   <Link to='/' className='links'>Home</Link>
                 
                 
-                  <a href="about.html" classame='links'>About</a>
+                  <Link to="./about.jsx" classame='links'>About</Link>
                 
                 
-                  <a href="FAQ.html" className='links'>FAQ</a>
+                  <Link to="./FAQ.jsx" className='links'>FAQ</Link>
                 
                 
-                  <a href="contact.html" className='links'>Contact</a>
+                  <Link to="./contact.jsx" className='links'>Contact</Link>
                 </div>
                {/* This closing tag now matches the opening <ul> */}
             

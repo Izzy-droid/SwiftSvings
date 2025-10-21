@@ -87,22 +87,31 @@ h1{
   width: 27em;
   height: 3em;
 }
+
 table{
-  
+ 
   border-collapse: collapse; 
+  
   font-family: 'Courier New', Courier, monospace;
   
 }
 .inner-tablebox {
   border: 5px solid black;
   border-radius: 5px; 
+  box-sizing: border-box;
+  min-width: none;
+  width: 77em;
+  margin-left: .5em;
 }
 
 .table-container{
   margin:0 auto;
   padding-right: 2em;
   
-  width:73em;
+}
+td{
+  border-bottom: 2px solid #333;
+  width: 100%;
 }
 
 .links-homepg{
@@ -152,12 +161,13 @@ td a{
 }
 .title-container{
   margin-top: 1em;
- 
+  position:absolute;
   margin-left: -.5em;
   text-align:left;
+  left: 35%;
+  color: #38598b;
+  width:50em;
   
-  
- 
 }
 .author-container{
   
@@ -178,11 +188,13 @@ td a{
 .desc-container{
   
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  width:60em;
+  width:61em;
   position: absolute;
   margin-top: -1.5em;
   
-  left:38%;
+  height:6.7em;
+  max-height:6.7em;
+  left:36%;
   padding-top: 1.5em;
   
 }
@@ -240,4 +252,9 @@ p, label{
 .bit{
   display: flex;
 }
-
+.truncate-overflow {
+   
+ overflow: hidden;
+ overflow: scroll;
+  
+}

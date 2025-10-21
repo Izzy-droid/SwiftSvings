@@ -5,19 +5,20 @@ import {Link, Routes, Route} from 'react-router-dom';
 //import Sidebar from "./Sidebar";
 
 //TODO:
-//set up manifest json and get it uploaded - in process
-//revamp BN and do ebay? 
+// do ebay? 
 //run server forever
+//pagination: (https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/)
+//dockerize
+
 
 
 //FOR LATER:
 //also fix the add icon idk why they're so reactive with one another
 //set up mangaspider on a later date
-//schedule scraper and get mysql filters BLEH
+//schedule scraper and 
 //set up azmspider
 //set up a dropdown for manga/figure filters
-//set up pagination for items
-//add desc for books/figs
+//future filters by website
 
 function App() {
   const [BNdata, setBNData] = useState([]);
@@ -131,14 +132,17 @@ function App() {
   },
 [input, ogData, setFilteredData],)
     
+  
+
+  
   return (
   <>
     <Routes>
       <Route path="/" element={<Layout />} />
 
-        {/* <Route path ="/Infotable" element={<Infotable/>}/> */}
-        {/* <Route path = "/Sidebar" element = { <Sidebar/>}/> */}
-
+        {/* <Route path ="/About" element={<Abput/>}/> */}
+        {/* <Route path = "/FAQ" element = { <FAQ/>}/> */}
+         {/* <Route path = "/contact" element = { <contact/>}/> */}
       
         
      
@@ -221,7 +225,7 @@ function App() {
                         <td><div className='title-container'><a href={item.book_url || item.figure_url}>{item.title}</a></div></td>
                         <td><div className='author-container'>{item.author || item.brand}</div></td>
                         <td><div className='price-container'>${item.price}</div></td>
-                        <td><div className='desc-container'>{item.descript ||  "No description given."}</div></td>
+                        <td><div className='desc-container truncate-overflow'>{item.descript ||  "No description given."}</div></td>
                         <td><div className='type-container'>{item.book_type}</div></td>
                         {/* <td><img src='./add.png' className='add-icon'/></td> */}
                         
