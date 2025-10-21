@@ -8,17 +8,11 @@ import logging
 import requests
 from scrapy import Request
 #manga/fig compare price site? 
-#target: barnesand nobles(1st try), r/mangaswap, facebook marketplace, amiami, goodsmile?
+#target: r/mangaswap, facebook marketplace
 #add kinokuniya for later maybe : https://usa.kinokuniya.com/new-releases-manga-en
 
-#TODO: add img, and fix up mySQL bleh
-load_dotenv()
 
-# def get_scraperapi_url(url):
-#     API_KEY =os.getenv('API_KEY')
-#     payload = {'api_key': API_KEY, 'url': url, 'follow_redirect': 'false', 'output_format': 'json', 'autoparse': 'true', 'country_code': 'us', 'device_type': 'desktop', 'render': 'true', 'premium': 'true'}
-#     proxy_url = 'http://api.scraperapi.com/?' + urlencode(payload)
-#     return proxy_url
+load_dotenv()
 
 ua = UserAgent(platforms='desktop')
 fake_user_agent = ua.random
@@ -35,14 +29,18 @@ class BNspiderSpider(scrapy.Spider):
       'AUTOTHROTTLE_MAX_DELAY': 60,
       'AUTOTHROTTLE_TARGET_CONCURRENCY':2.0, 
       'DOWNLOAD_DELAY': 3, 
-      
+      "CONCURRENT_REQUESTS": 4,
+      "PLAYWRIGHT_MAX_PAGES_PER_CONTEXT": 3,
+      'PLAYWRIGHT_LAUNCH_OPTIONS' : {
+    
+ }
 }
     
     
-    async def start(self):
+    def start_requests(self):
         base_url = 'https://www.barnesandnoble.com/s/manga'
         
-        #scraper_url = get_scraperapi_url(base_url)
+       
        
         yield scrapy.Request(
             base_url,
@@ -52,16 +50,22 @@ class BNspiderSpider(scrapy.Spider):
                 meta={
             'playwright': True,
             'playwright_include_page': True,
+            'playwright_context_kwargs': {  
+                'viewport': {'width': 1920, 'height': 1080},
+                'ignore_https_errors': True,
+                'java_script_enabled': True,
+                
+            },
             #"autothrottle_dont_adjust_delay": True,
             'playwright_page_methods' : [
                 
-                PageMethod('wait_for_load_state', 'networkidle'),
+                PageMethod('wait_for_selector', "#gridView"), 
                 PageMethod('evaluate',"window.scrollBy(0, document.body.scrollHeight)"),
                 PageMethod('wait_for_timeout', 5000),  
                 PageMethod('on', 'console', lambda msg: print(f"Console log: {msg.text}")),
                 PageMethod('on', 'pageerror', lambda exc: print(f"Page error: {exc}")),
                 PageMethod('route', '**/*', lambda route, request: route.abort() if request.resource_type in ['image', 'font', 'stylesheet'] else route.continue_()),
-                PageMethod('route', '**/*', lambda route, request: print(request.resource_type) or route.continue_()),
+               
             
               
             ],
@@ -77,88 +81,79 @@ class BNspiderSpider(scrapy.Spider):
         # Log the User-Agent header
         user_agent = response.request.headers.get('User-Agent').decode()
         self.log(f"User-Agent: {user_agent}")
+        start_link = "https://www.barnesandnoble.com/"
+        linkz = response.xpath("//*[@id='gridView']/div/div/div[1]/div[1]/div/a/@href").getall()
+        self.logger.info(f"Found {len(linkz)} product links on {response.url}")
 
-
-
-# 1 element should have a title, author,prices, book_types, book_URLs, book_imgs
-
-# const results = Array.from(document.querySelectorAll('#gridView > div > div')).map(container => {
-#     // Return an object containing the container's ID
-#     // and a true array of its child HTML elements.
-#     return {
-#         id: container.id,
-#         children: Array.from(container.children)
-#     };
-# });
-
-
-
-
-
-
-
-
-
-        
-        #this is for the books and what will be scraped
-        # /html/body/main/div[2]/div[1]/div[2]/div[2]/div/div/section[2]/div/div[1]/div[1]/div[1]/div/a/img
-        # //*[@id="gridView"]/div/div[1]/div[1]/div[1]/div/a/img
-        titles = response.xpath("//*[@id='gridView']/div/div/div[2]/div[1]/a[@title]/@title").getall()
-        authors = response.xpath("//*[@id='gridView']/div/div/div[2]/div[2]/a[1]/text()").getall()
-        prices = response.xpath("//*[@id='gridView']/div/div/div[2]/div[4]/div/a/span[2]/text()").getall()
-        book_types= response.xpath("//*[@id='gridView']/div/div/div[2]/div[4]/div/a/span[1]/text()").getall()
-        book_URLs= response.xpath("//*[@id='gridView']/div/div/div[2]/div[1]/a/@href").getall()
-        
-        #starting url for clarity
-        start_URL= "https://www.barnesandnoble.com"
-        #cleaning \n from the needed attributes
-        cleaned_prices= [price.strip() for price in prices]
-        cleaned_bookTypes=[book_type.strip() for book_type in book_types]
-
-   
-        cleaned_bookURLs= [start_URL + url if url.startswith("/") else url for url in book_URLs]
-        
-        book_imgs = response.xpath("//div[1]/div/a/img/@src").getall()
-        #parsing..
-        for title, author, price, book_img, book_type, book_URL in zip(titles, authors, cleaned_prices, book_imgs, cleaned_bookTypes, cleaned_bookURLs):
-                    yield {'title': title,
-                        'author': author,
-                        'price': price,
-                        'book_img': book_img,
-                        'book_type': book_type,
-                        'book_URL': book_URL
-                   }
-        
-        #debugging portion for scraped items
-        self.logger.debug(f"Extracted titles: {titles}")
-        self.logger.debug(f"Extracted authors: {authors}")
-        self.logger.debug(f"Extracted prices: {cleaned_prices}")
-        self.logger.debug(f"Extracted formats: {cleaned_bookTypes}")
-        self.logger.debug(f"Extracted formats: {cleaned_bookURLs}")
-       
- 
-     
-       
-        
-       
-     
-        # next_page = response.xpath("//a[@class='next-button']/@href").get()
-        # self.logger.debug(f"Current page: {response.url}")
-       
-
-        #for i in 
-        if next_page =="https://www.barnesandnoble.com/s/manga?Nrpp=20&page=51": 
-                return
-        else:
+        links = [start_link + link if link.startswith("/") else link for link in linkz]
+        for link in links:
             yield response.follow(
-                url =next_page,
-                callback=self.product_parse,
-                errback=self.errback,
+            link,
+            callback=self.product_parse,
+            errback=self.errback,
+            meta={'playwright': True}
+        )
+        
+        
+        
+        next_page = response.xpath("//a[contains(text(),'Next Page') or contains(@class,'next-button')]/@href").get()
+        
+           
+        if next_page:
+            self.logger.debug(f"Current page: {next_page}")
+            if next_page == "https://www.barnesandnoble.com/s/manga?Nrpp=20&page=51":
+                return
+            yield response.follow(
+            next_page,
+            callback=self.parse,
+            errback=self.errback,
                 meta={'playwright': True} 
             )
+        else:
+            return     
+        
+   
+       
+        
+       
+            
+            
     def product_parse(self,response):
-        pass
       
+        title = response.xpath("//*[@id='pdp-header-info']/h1/text()").get()
+        author= response.xpath("//*[@id='key-contributors']/a[1]/text()").get()
+        price = response.xpath("//*[@id='pdp-cur-price']/text()").get()
+        if price:
+            price = price.replace('\xa0', ' ').strip()
+       
+        
+        
+        book_type = response.xpath("//*[@id='pdp-info-format']/text()").get()
+        desc_parts = response.xpath("//*[contains(@class, 'overview-cntnt')]//text()").getall()
+        descript = " ".join([part.strip() for part in desc_parts if part.strip()])
+        
+        book_img = response.xpath("//*[@id='pdpMainImage']/@src").get()
+        # #0
+        book_URL =response.xpath("//link[@rel='canonical']/@href").get()
+        yield {
+            'title': title,
+            'author': author,
+            'descript': descript,
+            'price': price,
+            'book_img': book_img,
+            'book_type': book_type,
+            'book_URL': book_URL
+                
+        }
+        self.logger.debug(f"my titles: {title}")
+        self.logger.debug(f"brand: {author}")
+        self.logger.debug(f"desc: {descript}")
+        self.logger.debug(f"price: {price}")
+        self.logger.debug(f"img: {book_img}")
+        self.logger.debug(f"img: {book_type}")
+        self.logger.debug(f"link: {book_URL}")
+        
+    
     async def errback(self,failure):
         page= failure.request.meta.get("playwright_page")
         if page:

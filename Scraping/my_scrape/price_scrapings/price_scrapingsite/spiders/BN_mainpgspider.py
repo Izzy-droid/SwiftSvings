@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from urllib.parse import urlencode
 import logging
 #COME BACK TO THIS FOR THE LOGIC OF THE PAGINATION
-
+#unfinished
 class BNs_mainspiderSpider(scrapy.Spider):
     name = "mainspider"
     allowed_domains = ["www.barnesandnoble.com"]
@@ -17,7 +17,7 @@ class BNs_mainspiderSpider(scrapy.Spider):
     def start_requests(self):
         base_url = 'https://www.barnesandnoble.com/b/books/graphic-novels-comics-manga/_/N-29Z8q8Z2y35'
         
-        #scraper_url = get_scraperapi_url(base_url)
+   
        
         yield scrapy.Request(
             base_url,

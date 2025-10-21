@@ -37,9 +37,6 @@ class GSspiderSpider(scrapy.Spider):
                 
                 PageMethod('wait_for_load_state', 'networkidle'),
                 
-                #to handle show results button
-                # PageMethod('evaluate', "document.querySelector('.ais-InfiniteHits-loadMore').contains('disabled')"),
-                # PageMethod('click', '.ais-InfiniteHits-loadMore'),
                 
                 PageMethod(
                  'evaluate',
@@ -105,7 +102,8 @@ class GSspiderSpider(scrapy.Spider):
                 callback=self.parse_product,
                 meta={'playwright': True}
             )
-                
+    
+      
             
            
     def parse_product(self,response):

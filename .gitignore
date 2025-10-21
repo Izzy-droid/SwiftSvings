@@ -13,3 +13,5 @@ pyvenv.cfg
 manifest.json
 node_modules
 dist/
+bin/ 
+lib/

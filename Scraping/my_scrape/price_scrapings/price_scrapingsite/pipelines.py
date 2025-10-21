@@ -48,9 +48,10 @@ class SavingToMySQLPipeline(object):
     def reset_items(self, item):
         pass
     def store_in_db(self, item):
-        self.curr.execute(""" INSERT INTO BNmanga_products (title, author, price, book_img, book_type, book_url) VALUES (%s,%s,%s, %s, %s, %s)""", (
+        self.curr.execute(""" INSERT INTO BNmanga_products (title, author, descript, price, book_img, book_type, book_url) VALUES (%s,%s,%s,%s, %s, %s, %s)""", (
             item.get("title", None), 
-            item.get("author", None),  
+            item.get("author", None),
+            item.get("descript", None),  
             item.get("price", None), 
             item.get("book_img", None), 
             item.get("book_type", None),
