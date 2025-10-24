@@ -1,0 +1,17 @@
+# Created by venv; see https://docs.python.org/3/library/venv.html
+
+*.env
+*my.cnf
+venv/
+__pycache__/
+output.json
+.DS_Store
+azmspider.py
+BN_mainphspider.py
+swapspider.py
+pyvenv.cfg
+manifest.json
+node_modules
+dist/
+bin/ 
+lib/
