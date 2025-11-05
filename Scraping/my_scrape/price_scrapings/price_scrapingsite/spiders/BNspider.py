@@ -7,9 +7,7 @@ from fake_useragent import UserAgent
 import logging
 import requests
 from scrapy import Request
-#manga/fig compare price site? 
-#target: r/mangaswap, facebook marketplace
-#add kinokuniya for later maybe : https://usa.kinokuniya.com/new-releases-manga-en
+
 
 
 load_dotenv()
