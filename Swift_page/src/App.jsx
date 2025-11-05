@@ -4,22 +4,6 @@ import Layout from './Layout';
 import {Link, Routes, Route} from 'react-router-dom';
 
 
-//TODO:
-// do ebay? 
-//run server forever
-//pagination: (https://www.freecodecamp.org/news/build-a-custom-pagination-component-in-react/)
-//dockerize
-
-
-
-//FOR LATER:
-//also fix the add icon idk why they're so reactive with one another
-//set up mangaspider on a later date
-//schedule scraper and 
-//set up azmspider
-//set up a dropdown for manga/figure filters
-//future filters by website
-
 function App() {
   const [BNdata, setBNData] = useState([]);
   const [GSdata, setGSData] = useState([]);
