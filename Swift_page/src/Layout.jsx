@@ -1,5 +1,6 @@
 import React from 'react';
 import { Outlet, Link } from 'react-router-dom';
+import logo from '../images/Slime_0.png';
 function Layout(){
 return(
     <>
@@ -12,7 +13,7 @@ return(
                 
                {/* Added the missing <ul> opening tag */}
                 
-                  <img src="./images/Slime_0.png" alt="logo" className="logo" />
+                <img src={logo} alt="logo" className="logo" />
                 
                   <h1 className="ST">Swift Savings</h1>
                 <div className="links-homepg">
